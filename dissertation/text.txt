@@ -1,0 +1,143 @@
+let the following problem definition:
+
+` A development software team was given the responsibility to decide between try fixing a problematic, buggy and erroneous software recently developed by another team OR rewrite this entire project from scratch. What factors should this team take under consideration to support their decision? `
+
+
+
+https://www.georgefairbanks.com/ieee-software-v36-n2-mar-2019-ignore-refactor-rewrite
+
+"Decisions about software architecture are about three things: tradeoffs, tradeoffs, and tradeoffs. Your desire to fix problems in the code trades off against company revenue and commitments to deliver features. We can’t simply maximize code health, we must instead contribute to a making a good decision."
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8648269
+
+"So, there are times when rewriting is the least bad option, but when you decide to rewrite a big chunk of your system, expect a tough road. Your architecture has many dimensions and many stakeholders. It’s hard to realize how the old system is satisfying all of them, and, inevitably, some forgotten quality will be worse with the new system, and some forgotten stakeholder will complain loudly about your new design."
+
+
+
+In the context of software engineering research, "snowballing" typically refers to a snowball sampling method used in literature reviews. This approach is employed to identify and gather relevant research papers or articles on a particular topic. The idea is to start with a small set of known or highly relevant papers and then use them as a "snowball" to find additional relevant sources by examining their references and citations.
+
+Here's a general process of snowballing in the context of literature reviews:
+
+Initial Set:
+
+Begin with a few key papers or articles that are highly relevant to your research topic.
+References:
+
+Examine the references (bibliography) of these initial papers.
+Identify and collect papers that are cited by the initial set.
+Citations:
+
+Look at the papers that have cited the initial set of papers.
+Collect these citing papers as they may provide additional insights or perspectives.
+Repeat:
+
+Repeat the process iteratively, using each new set of papers to identify more references and citations.
+The goal of snowballing is to ensure a comprehensive and thorough literature review by uncovering both seminal works and recent contributions in a given research area. It helps researchers avoid missing important papers that may not be easily discoverable through traditional search methods.
+
+
+
+
+
+Referências:
+
+https://www.sciencedirect.com/science/article/pii/S0950584922000659
+
+Artigo mais recente!
+https://dl.acm.org/doi/abs/10.1145/3266237.3266240
+
+Esse fala que usar o google scholar resolve para start set para depois realizar um snowballing. Mas só o scholar não é recomendado.
+
+
+
+
+
+RAPID REVIEW PROTOCOL
+
+1. PRACTICAL PROBLEM
+
+A company reports critical issues on its recent developed software. A new team is built to solve it and has to decide between fixing the software or rebuilding it from scratch.
+
+
+2. RESEARCH QUESTIONS
+
+
+● How to make the best choice between fixing and rewriting a problematic software, considering risks involved in both alternatives?
+
+To suport that decision, a few secondary questions must be answered:
+
+1) How to detect critical technichal debt, major software risks or even software bankruptcy (defined as software failure beyond fixing) in a software project?
+
+Identifying those elements may lead to avoid wasting time and resources on code unfeasible to fix.
+
+2) How the software complexity can affect its maintainability.
+
+High complexity or entanglement may indicate low maintainability.
+
+3) How to decide between maintaining a legacy software and replacing it?
+
+Factors that influence that decision may also help the fixing/rewriting dilema because it is a similar trade-off situation.
+
+
+3. METHODOLOGY
+
+In order to gather relevant evidence to address those research questions, the following steps are proposed.
+
+3.1 An open search on Google Scholar is performed to discover relevant key words on the topic.
+
+3.2 A search query is then constructed from the articles found.
+
+3.3 The query is run on that same platform. Relevant articles linked to one of the research questions are freely havested to constitute a initial dataset.
+
+3.4 Backward snowballing is executed to collect related works that match the selection critirea.
+
+3.5 All the final dataset is reviewd for evidences that address the research questions.
+
+3.6 The findings are reported on a spreadsheet, along with its applicability to the case studied.
+
+
+4. SEARCH STRATEGY
+
+4.1. Source
+
+Google scholar.
+
+4.2. Search query
+
+software ((project (failure OR bankruptcy OR "thecnical debt")) OR (problem rewrite (refactoring OR refactor)) OR (risks maintenance decision))
+
+
+5. SELECTION PROCEDURE
+
+5.1 There will be accepted only:
+
+● papers published in journals or conferences;
+● written in english;
+● available on Google Scholar;
+● with title or abstract that addresses at least one of the research questions.
+
+The selection process is executed by one researcher in one round and is documented into a spreadsheet.
+
+
+6. QUALITY ASSESSMENT
+
+No quality assessment will be made on the selected primary studies, as long as they match all the criteria.
+
+7. EXTRACTION PROCEDURE
+
+A spreadsheet template will be created to store all evidence we find that answer the research questions. This process will be conducted by only one researcher.
+
+8. SYNTHESIS PROCEDURE
+
+The synthesys procedure will be based on the principles of narrative synthesis.
+
+9. REVIEW REPORT
+
+The results will be reported through Evidence Briefings, presented in a storytelling narrative format.
+
+
+
+
+
+
+
+

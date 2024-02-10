@@ -1,0 +1,314 @@
+"software project failure"
+	Maioria: razões pelas quais os projetos falham
+	- gerenciamento
+	- requisitos mal definidos ou que mudam frequentemente
+	- expectativas ou cronograma irrealistas
+	
+	Failure x success -> o que causa um projeto estourar prazo/custo ou ser abandonado?
+	- falta de controle de qualidade
+	
+	Identificação de padrões em projetos que falharam
+	-> estudo de caso software pra Finance
+	- falta de gestão, comunicação inadequada, testes insuficientes, requisitos pouco claros
+
+"legacy software"
+	- "software modernization"
+		- como reescrever
+	- How do professionals perceive legacy systems and software modernization?
+		- qualitative research: como profissionais de TI enxergam legados
+			- negativo: tecnologias ultrapassadas, alto custo de manutenção etc
+			- reconhecem desafios para atualização: 
+				risco, custo, prazo,
+			- discussão importante: quando vale a pena modernizar
+
+	Rapid review - Metodologia de pesquisa
+		-> pesquisa adhoc
+		-> desenhar a pesquisa
+		-> iniciar
+
+RAPID REVIEW PROTOCOL
+
+1. PROBLEM
+
+A company reports critical issues on its recent developed software. A new team is built to solve it and has to decide between fixing the software or rebuilding it from scratch.
+
+
+2. QUESTÕES DE PESQUISA
+
+The main question here is:
+
+● How to make the best choice between fixing and rewriting a problematic software, considering risks involved in both alternatives?
+
+To suport that crucial decision, we may elaborate secondary questions:
+
+1) How to detect critical technichal debt, major software risks or even software bankruptcy (defined as software failure beyond salvation) in a software project?
+
+Identifying those elements may lead the team to avoid wasting time and resources on code unfeasible to fix.
+
+2) How the software complexity can affect its maintainability.
+
+High complexity or entanglement may indicate low maintainability, which also implicates and low fixability.
+
+3) How to decide between maintaining a legacy software and replacing it?
+
+Factors that influence that decision making may also help the fixing/rewriting dilema because it is a similar trade-off situation.
+
+
+3. METODOLOGIA
+
+In order to gather relevant evidence to address those research questions, the following steps are proposed.
+
+
+3.1 First, open search on Google Scholar is performed to discover relevant key words on the topic.
+
+3.2 A search query is constructed from the articles found.
+
+3.3 The query is run on that same platform. Relevant articles linked to one of the research questions are freely havested to a initial dataset.
+
+3.4 Backward snowballing is executed to collect related works that match the selection critirea.
+
+3.5 All the final dataset is reviewd for evidences that address the research questions.
+
+3.6 The findings are reported on a spreadsheet, along with its applicability to the case studied.
+
+
+3. SEARCH STRATEGY
+
+3.1. Source
+
+Google scholar.
+
+3.2. Search query
+
+....
+
+
+4. SELECTION PROCEDURE
+
+4.1 There will be accepted only:
+
+1) papers published in journals or conferences;
+2) written in english;
+3) openly available on Google Scholar;
+4) with title or abstract that addresses at least one of the research questions.
+
+The selection process will be executed in one rounde and documented in spreadsheet format. Only one researcher will do the analysis to accept or reject the articles.
+
+
+5. QUALITY ASSESSMENT
+
+No quality assessment will be made on the selected primary studies, as long as they match all the criteria.
+
+6. EXTRACTION PROCEDURE
+
+A spreadsheet template will be created to store all evidence we find that answer the research questions. This process will be conducted by only one researcher.
+
+7. SYNTHESIS PROCEDURE
+
+The synthesys procedure will be based on the principles of narrative synthesis.
+
+8. REVIEW REPORT
+
+The results will be reported through Evidence Briefings, presented in a storytelling narrative format.
+
+
+------------------------------------------------------------------------ O PROBLEMA
+
+let the following problem definition:
+
+` A development software team was given the responsibility to decide between try fixing a problematic, buggy and erroneous software recently developed by another team OR rewrite this entire project from scratch. What factors should this team take under consideration to support their decision? `
+
+------------------------------------------------------------------------ KEYS: REWRITE vs. REFACTOR
+
+"To Refactor or to Rewrite: That's the Question" by Tom Mens and Tom Tourwé (2004): This paper discusses the decision between refactoring (fixing) and rewriting software from a software maintenance perspective. It provides a framework for assessing the costs and benefits of each approach and presents guidelines for making an informed decision.
+
+"When to Use Agile Methods for Software Development?" by Barry Boehm and Richard Turner (2004): This paper explores the factors that influence the decision to adopt agile methods, which can be relevant to the decision of fixing or rewriting software. It presents a decision model that considers factors such as project size, criticality, team size, and required functionality.
+
+"The Decision to Redesign: A Case Study" by Curtis Cook (1996): This paper presents a case study of a software project decision to redesign and rewrite an existing system. It discusses the decision-making process, the factors considered, and the outcomes of the decision. It provides insights into the challenges and benefits of a redesign approach.
+
+"Evaluating the Impact of Software Reengineering Strategies" by Leon Moonen and Arie van Deursen (2003): This paper evaluates different software reengineering strategies, including fixing and rewriting, using empirical studies. It presents a framework for assessing the impact of these strategies on various software attributes and offers insights into their effectiveness.
+
+"The Decision to Rewrite Software Systems" by David F. Redmiles and André van der Hoek (1999): This paper investigates the factors that influence the decision to rewrite software systems, including the technical and organizational aspects. It presents a case study and provides guidelines for making informed decisions about software system rewrites.
+
+------------------------------- George Fairbanks -> It's a tradeoff
+
+https://www.georgefairbanks.com/ieee-software-v36-n2-mar-2019-ignore-refactor-rewrite
+
+"Decisions about software architecture are about three things: tradeoffs, tradeoffs, and tradeoffs. Your desire to fix problems in the code trades off against company revenue and commitments to deliver features. We can’t simply maximize code health, we must instead contribute to a making a good decision."
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8648269
+
+"So, there are times when rewriting is the least bad option, but when you decide to rewrite a big chunk of your system, expect a tough road. Your architecture has many dimensions and many stakeholders. It’s hard to realize how the old system is satisfying all of them, and, inevitably, some forgotten quality will be worse with the new system, and some forgotten stakeholder will complain loudly about your new design."
+
+------------ Buscas falhas
+
+legacy software
+software refactoring
+software projects start over
+
+------------ Interesses
+
+software fails | project fail | project failure
+Refactor, or Rewrite? 													Ignore, Refactor, or Rewrite? - George Fairbanks
+[software irrecuperável]
+
+------------ Maybe
+
+software project risks
+Software Metrics
+Code Smells
+Refactoring Techniques
+
+PASSOS:
+
+1- Ler M. Fowler, Refactoring. Reading, MA: Addison-Wesley, 2018
+	2- Ler mais papers
+	3- Mais pesquisa aberta
+4- Escrever o protocolo rapid review
+5- Validar e Executar o rapid review
+6- Organizar dados do projeto
+7- Escrever dissertação
+
+
+LIVRO
+https://www.dropbox.com/sh/uv4geppmtfoeisw/AACfT2J-uwxPfb0l_qFgvAkDa?dl=0
+
+
+https://docs.google.com/presentation/d/15MXzIU9HtniWodQ8KnivpGuL-68JxeEGXmIvRZw12zc/edit#slide=id.g2553f60562a_0_0
+
+------------------- RAPID
+
+https://ieeexplore.ieee.org/abstract/document/8648269
+
+	Ignore, Refactor, or Rewrite
+
+	Imagine that you have some code written, but it has problems. The problems are small enough that you could imagine rewriting the code completely, and you must choose what do. You could do nothing (ignore it), make incremental changes (refactor it), or write new code from scratch (rewrite it). How do you choose? What factors do you consider? There’s already a lot of guidance. In fact, the very existence of refactoring on the list of choices is special because the idea of refactoring code wasn’t well formed until the 1990s. When you refactor code, you make changes that improve its structure but do not change its visible behavior, and our tools are increasingly good at supporting refactoring, helping us make sweeping changes safely.
+
+	LEGACY -> it's a trade off between 3 options
+
+https://www.altamira.ai/blog/how-to-deal-with-the-problem-software-rewrite-vs-refactor/
+
+	How to Deal with the Problem Software: Rewrite vs Refactor
+
+	Many business owners face the challenges of mounting technical debt in the process of software development. At some point, software application code becomes unmanageable and the development team has to take efficient actions. The consequences of the long app operation must be either refactored or rewritten. And a legacy code can be very costly. Both of these options – rewrite and refractor – have their advantages and disadvantages for stakeholders and developers. In this article, we will discuss how to deal with unmanageable code or legacy code, depending on the particular project, type of app, team’s capabilities, and main goals for the app taking into account pitfalls and risks.
+
+	LEGACY -> there're pros and cons. consider refactoring. Budget is key.
+	
+https://eric.ed.gov/?id=EJ831238
+	
+	How to Rewrite Software--And when Not to
+	
+	In this article, the author provides several reasons why one should not rewrite a code from scratch. One should not do it because it will take longer than one thinks. This is the lesson he learned when he started rewriting one of his applications from scratch. The sane thing to do would have been to fix or replace a piece and get on with life. However, the author contends that there are also reasons why one should rewrite. He cites several scenarios that require rewriting of an application from scratch.
+	
+	LEGACY -> do not rewrite. Hidden costs.
+	
+https://pubsonline.informs.org/doi/abs/10.1287/isre.1040.0037
+
+	A Decision Model for Software Maintenance
+	
+	In this paper we address the problem of increasing software maintenance costs in a custom software development environment, and develop a stochastic decision model for the maintenance of information systems. Based on this modeling framework, we derive an optimal decision rule for software systems maintenance, and present sensitivity analysis of the optimal policy. We illustrate an application of this model to a large telecommunications switching software system, and present sensitivity analysis of the optimal state for major upgrade derived from our model. Our modeling framework also allows for computing the expected time to perform major upgrade to software systems.
+	
+	LEGACY -> a decision tree for maintenance: a) leaving as is, b) fix, c) replace, d) outsourcing.
+	
+https://ieeexplore.ieee.org/abstract/document/1502528
+	
+	Why software fails [software failure]
+	
+	Most IT experts agree that software failures occur far more often than they should despite the fact that, for the most part, they are predictable and avoidable. It is unfortunate that most organizations don't see preventing failure as an urgent matter, even though that view risks harming the organization and maybe even destroying it. Because software failure has tremendous implications for business and society, it is important to understand why this attitude persists.
+	
+	FAILURE -> factors that causes project to fail and how to mitigate risks.
+	
+https://dl.acm.org/doi/abs/10.1145/1610252.1610286
+
+	Why did your project fail?
+
+	We have been developing software since the 1960s but still have not learned enough to ensure that our software development projects are successful. Boehm2 suggested that realistic schedule and budgets together with a continuing steam of requirements changes are high risk factors. The Standish Group in 1994 noted that approximately 31% of corporate software development projects were cancelled before completion and 53% were challenged and cost 180% above their original estimate.13 Glass discussed 16 project disasters.5 He found that the failed projects he reviewed were mostly huge and that the failure factors were not just management factors but also included technical factors.
+	
+	FAILURE -> quantifies root causes of failure for 70 software projects 
+			
+https://dl.acm.org/doi/abs/10.5555/800091.802962
+	
+	An analysis of software project failure
+	
+	The main aim of this paper is to indicate how various losses may be reduced or avoided when the development of software does not proceed according to its schedule; i.e., if what we call “bankruptcy” occurs. Data were collected from twenty three projects in various types of applications, the projects together containing a million lines of code. The causes of failure in developing software were obtained by interviewing the managers of the projects under observation. Having analysed these two aspects, this paper points out under what circumstances managers are likely to fail and proposes a method of detecting failures in the software development.
+	
+	FAILURE -> a method to decide when a softawre project has came to failure (bankruptcy).
+	
+https://ieeexplore.ieee.org/abstract/document/4632095
+	
+	What factors lead to software project failure?
+	
+	It has been suggested that there is more than one reason for a software development project to fail. However, most of the literature that discusses project failure tends to be rather general, supplying us with lists of risk and failure factors, and focusing on the negative business effects of the failure. Very little research has attempted an in-depth investigation of a number of failed projects to identify exactly what are the factors behind the failure. In this research we analyze data from 70 failed projects. This data provides us with practitionerspsila perspectives on 57 development and management factors for projects they considered were failures. Our results show that all projects we investigated suffered from numerous failure factors. For a single project the number of such factors ranges from 5 to 47. While there does not appear to be any overarching set of failure factors we discovered that all of the projects suffered from poor project management. Most projects additionally suffered from organizational factors outside the project managerpsilas control. We conclude with suggestions for minimizing the four most common failure factors.
+	
+	FAILURE -> quantifies ocurrence of factors in 70 project failure cases, such as poor planning, unclear requirements
+	
+https://ieeexplore.ieee.org/abstract/document/9743906
+	
+	Software Project Failure Process Definition
+	
+	Many researchers have attempted to identify the factors behind software project failures and their solutions from various perspectives. However, systematic and integrated process definitions of failure as process models for success are lacking. This study aims to build a process definition for software project failure as an anti-pattern by identifying the main phases and their relationships in terms of team behavior. We researched software engineering literature and case studies to gather information about critical incidents and repeating behaviors of teams in failed projects into a novel dataset. Grounded theory was employed to build a theoretical foundation for failure phase definitions from the collected data. The design structure matrix and Bayesian belief network were used for the quantitative assessment of the transitions between phases. The results revealed that common behavioral patterns occurred in approximately 89 percent of the case studies, supporting the decision to consider software project failure as a process. The proposed failure process definition has a simple structure that uses everyday concepts for phase names and reveals the critical behaviors leading a software project to failure Thus, it provides critical insights for software professionals, non-technical stakeholders, and managers to evaluate the progress of their projects and design strategies to avoid failure.
+	
+	FAILURE -> proposes methodo to define project failure and provide insights to avoid failure.
+
+
+Melhor chatGPT:
+
+("software project failure" OR "software failure" OR "project failure") 
+AND 
+("legacy code" OR "refactor" OR "rewrite" OR "maintenance decision" OR "risk management" OR "code smells" OR "software metrics" OR "refactoring techniques") 
+AND 
+("factors" OR "methods" OR "process" OR "analysis" OR "model" OR "approach")
+
+Melhor Rafael:
+
+software ((project (failure OR bankruptcy)) OR (rewrite (refactoring OR refactor)) OR (risks maintenance decision) OR (metrics quality smells problems))
+software ((project (failure OR bankruptcy)) (rewrite (refactoring OR refactor)) (risks maintenance decision) (metrics quality smells problems))
+
+--------------------------------------
+
+Final:
+
+software -legacy ((project (failure OR bankruptcy)) OR (rewrite (refactoring OR refactor)) OR (risks maintenance decision) OR (metrics quality smells problems)) intitle:(maintenance OR rewrite OR failure OR bankruptcy OR fails)
+
+software project (failure OR bankruptcy OR (rewrite refactoring)) intitle:(software project (maintenance OR rewrite OR failure OR bankruptcy OR fail OR fails)) -legacy -agile -extreme
+
+[24/8 16:22] Sergio Soares Cin: https://elicit.org/
+[24/8 16:24] Sergio Soares Cin: Minhas revisões agora são combinadas com Elicit e Google Acadêmico. Faço perguntas aos artigos mais interessantes usando o chatbot do Elicit.
+[24/8 16:24] Sergio Soares Cin: Depois eu jogo as frases em parágrafos meio bagunçados mesmo e mando o chatgpt organizar o texto.
+[24/8 16:24] Sergio Soares Cin: Só que antes de tudo isso eu digo ao chatGPT que ele seja eu e copio uns trechos de introduções e abstracts de artigos meus, para ele aprender meu estilo de escrita.
+[24/8 16:24] Sergio Soares Cin: Quando mando reorganizar o texto, digo que ele combine meu estilo com o de artigos mais citados das revistas da Springer-Nature, por exemplo.
+
+
+---- Snowballing
+
+In the context of software engineering research, "snowballing" typically refers to a snowball sampling method used in literature reviews. This approach is employed to identify and gather relevant research papers or articles on a particular topic. The idea is to start with a small set of known or highly relevant papers and then use them as a "snowball" to find additional relevant sources by examining their references and citations.
+
+Here's a general process of snowballing in the context of literature reviews:
+
+Initial Set:
+
+Begin with a few key papers or articles that are highly relevant to your research topic.
+References:
+
+Examine the references (bibliography) of these initial papers.
+Identify and collect papers that are cited by the initial set.
+Citations:
+
+Look at the papers that have cited the initial set of papers.
+Collect these citing papers as they may provide additional insights or perspectives.
+Repeat:
+
+Repeat the process iteratively, using each new set of papers to identify more references and citations.
+The goal of snowballing is to ensure a comprehensive and thorough literature review by uncovering both seminal works and recent contributions in a given research area. It helps researchers avoid missing important papers that may not be easily discoverable through traditional search methods.
+
+
+
+Referências:
+
+https://www.sciencedirect.com/science/article/pii/S0950584922000659
+
+Artigo mais recente!
+https://dl.acm.org/doi/abs/10.1145/3266237.3266240
+
+Esse fala que usar o google scholar resolve para start set para depois realizar um snowballing. Mas só o scholar não é recomendado.
+
