@@ -1,54 +1,74 @@
-let the following problem definition:
-
-` A development software team was given the responsibility to decide between try fixing a problematic, buggy and erroneous software recently developed by another team OR rewrite this entire project from scratch. What factors should this team take under consideration to support their decision? `
-
-
-
-https://www.georgefairbanks.com/ieee-software-v36-n2-mar-2019-ignore-refactor-rewrite
-
-"Decisions about software architecture are about three things: tradeoffs, tradeoffs, and tradeoffs. Your desire to fix problems in the code trades off against company revenue and commitments to deliver features. We can’t simply maximize code health, we must instead contribute to a making a good decision."
-
-https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8648269
-
-"So, there are times when rewriting is the least bad option, but when you decide to rewrite a big chunk of your system, expect a tough road. Your architecture has many dimensions and many stakeholders. It’s hard to realize how the old system is satisfying all of them, and, inevitably, some forgotten quality will be worse with the new system, and some forgotten stakeholder will complain loudly about your new design."
-
-
-
-In the context of software engineering research, "snowballing" typically refers to a snowball sampling method used in literature reviews. This approach is employed to identify and gather relevant research papers or articles on a particular topic. The idea is to start with a small set of known or highly relevant papers and then use them as a "snowball" to find additional relevant sources by examining their references and citations.
-
-Here's a general process of snowballing in the context of literature reviews:
-
-Initial Set:
-
-Begin with a few key papers or articles that are highly relevant to your research topic.
-References:
-
-Examine the references (bibliography) of these initial papers.
-Identify and collect papers that are cited by the initial set.
-Citations:
-
-Look at the papers that have cited the initial set of papers.
-Collect these citing papers as they may provide additional insights or perspectives.
-Repeat:
-
-Repeat the process iteratively, using each new set of papers to identify more references and citations.
-The goal of snowballing is to ensure a comprehensive and thorough literature review by uncovering both seminal works and recent contributions in a given research area. It helps researchers avoid missing important papers that may not be easily discoverable through traditional search methods.
 
 
 
 
+INTRODUCTION
 
-Referências:
+Frequently a software development project requires some crucial decisions in its very begginning that will heavly influence its success. The problem is the timing to make those initial decisions is precisaly when the team has the least information gained about the contexts, scopes and riks involved, insights that will be better collected later on.
 
-https://www.sciencedirect.com/science/article/pii/S0950584922000659
+This work presents a case study on which a development team was required to resume a previous project that had faield in the past. Important bugs were found and the original developers couldn't fix. The new team was handed the source code and the initial requirements and had to decide between trying to fix the bugs or rewriting the entire program from scratch.
 
-Artigo mais recente!
-https://dl.acm.org/doi/abs/10.1145/3266237.3266240
-
-Esse fala que usar o google scholar resolve para start set para depois realizar um snowballing. Mas só o scholar não é recomendado.
+What factors should they've taken under consideration?
 
 
 
+Background
+
+This section presents a brief summarization on the project studied.
+
+
+Statement of the problem
+
+First of all, 
+
+How to make the best choice between trying to fix and rewriting a problematic software, considering risks involved in both alternatives?
+
+The issue the team faced was to decide on the spot 
+
+This is similar (but not quite the same) to the maintenance x replacement problem, which has been vastly studied []. This research field aims to decide when it isn't worth any longer to maintain a legacy software and therefore rebuilding the software is a better solution. As time passes, a legacy software becomes increasingly more difficult (and costly) to maintain due to many factors, including technical debts acumulation and outdated technologies []. However, rewriting raises its own concerns and risks, specially regarding costs and schedule overruns []. Many researchers have tried to find the sweet spot, the optiomal time to freeze the old project evolution and start working on the new one.
+
+However similar, this problem differs to the this research topic on a couple of things. First, the problematic software isn't exactly a legacy, as crucial bugs prevented it from going to production. Second, fixing is not the same as maintaining. And finally, not much time has passed since the software has been written, so it isn't a matter of outdated technology either.
+
+
+Significance of the research
+
+
+It must be hard to given up of something that has been build and put effort to, but it might be the 
+
+As it will be shown further on, there aren't many studies on this specific problem, perhaps because it's not as frequent as the maintaning x replacing problem. Although when challegend with this problem, one might struggle to decide
+
+In the case studied, the practioners settled onto a mid term: the team was splitted in two groups. The first group focused on trying to comprehend and hopefuly fix the erroneous program, and the other one started a fresh code based exclusivly on the requirements provided by the sponsor (). The outcome was that the first group failed to address the problems in the original project within the given schedule, which was then terminated.
+
+Generally speaking, everyone was happy. The team tried their best on the old program, couldn't make any progress and moved on. However, this decision was clearly suboptimal, because losses were taken. It's evident that the path choosen was a compromise, not a systemathic approach.
+
+Hence, the goal of this case study is to determine if there was objectivly a better decision to be made in that situation based on reserarch evidence.
+
+
+Methodology
+
+To accomplished this research goal a number of steps were needed.
+
+1) Organize all the data the practioners had available about the project, technologies, scope and contexts that may influence that decision making;
+2) Gather evidence from the literature on that subject;
+3) Apply those evidences on the case studied to assess if there was objectivly an optimal decision to be made.
+
+Each of those steps bear their on challenges.
+
+The data used must reflect exactly what the practioners had available when they first started their roles.
+
+In order to cover the literature we choose to run a Rapid Review. A RR is usually choosen over a traditional systematic review for being more flexible and less time consuming, while still providing a controlled process of obtaining sufficient evidence on the research question []. Adittionally, we'll use snowballing on the discovering step of the RR, as previous works support our decision [].
+
+Snowballing refers to a sampling method used in literature reviews. This approach is employed to identify and gather relevant research papers or articles on a particular topic. The idea is to start with a small set of known or highly relevant papers and then use them as a "snowball" to find additional relevant sources by examining their references and citations. This particular combination of using Google Scholar to put up a initial set and snowballing them is well supported [https://www.sciencedirect.com/science/article/pii/S0950584922000659, https://dl.acm.org/doi/abs/10.1145/3266237.3266240].
+
+Finally, 
+
+Although he wasn't reposible for that decision. It's important to aknowloged this bias.
+
+Overview of the dissertation
+
+- Rapid Review Protocol
+- Rapid Review Report and discussions
+- Conclusion
 
 
 RAPID REVIEW PROTOCOL
@@ -133,6 +153,9 @@ The synthesys procedure will be based on the principles of narrative synthesis.
 9. REVIEW REPORT
 
 The results will be reported through Evidence Briefings, presented in a storytelling narrative format.
+
+
+RAPID REVIEW REPORT AND DISCUSSIONS
 
 
 
