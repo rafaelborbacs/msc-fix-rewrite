@@ -1,0 +1,8 @@
+<.live_component
+  module={UploaderTWeb.DestinationLive.FormComponent}
+  id={Map.get(@config_data, "id") || :new}
+  title={@page_title}
+  action={@live_action}
+  config_data={@config_data}
+  return_to={Routes.destination_index_path(@socket, :index)}
+/>

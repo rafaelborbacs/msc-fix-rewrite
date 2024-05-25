@@ -1,0 +1,57 @@
+<div>
+  <h1 class="text-xl text-center"><%= @title %></h1>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="unit-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <%= label(
+      f,
+      :location,
+      "Localização",
+      class: ["block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"]
+    ) %> <%= text_input(f, :location,
+      class:
+        "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    ) %> <%= error_tag(f, :location) %> <%= label(f, :host, "Host",
+      class: ["block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"]
+    ) %> <%= text_input(f, :host,
+      class:
+        "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    ) %> <%= error_tag(f, :host) %> <%= label(f, :port, "Porta",
+      class: ["block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"]
+    ) %> <%= number_input(f, :port,
+      min: 1,
+      class:
+        "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    ) %> <%= error_tag(f, :port) %> <%= label(f, :public_key, "Chave Pública",
+      class: ["block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"]
+    ) %> <%= text_input(f, :public_key,
+      class:
+        "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    ) %> <%= error_tag(f, :public_key) %>
+    <div class="flex flex-row gap-2">
+      <%= label(f, :r_enabled, "É Receptor",
+        class: [" block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"]
+      ) %> <%= checkbox(f, :r_enabled) %> <%= error_tag(f, :r_enabled) %> <%= label(
+        f,
+        :t_enabled,
+        "É Transmissor",
+        class: ["block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"]
+      ) %> <%= checkbox(f, :t_enabled) %> <%= error_tag(f, :t_enabled) %>
+    </div>
+
+    <div class="flex">
+      <div class="flex-1"></div>
+      <%= submit("Salvar",
+        phx_disable_with: "Saving...",
+        class: "bg-blue-500 hover:bg-blue-400 p-2 rounded text-white w-32 m-2"
+      ) %>
+      <div class="flex-1"></div>
+    </div>
+  </.form>
+</div>

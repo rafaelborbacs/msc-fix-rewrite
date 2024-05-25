@@ -1,0 +1,26 @@
+<div>
+  <h1 class="text-xl text-center"><%= @title %></h1>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="log-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <%= label(f, :uuid) %> <%= text_input(f, :uuid) %> <%= error_tag(f, :uuid) %> <%= label(
+      f,
+      :logged_at
+    ) %> <%= datetime_select(f, :logged_at) %> <%= error_tag(f, :logged_at) %> <%= label(
+      f,
+      :event
+    ) %> <%= text_input(f, :event) %> <%= error_tag(f, :event) %> <%= label(f, :message) %> <%= text_input(
+      f,
+      :message
+    ) %> <%= error_tag(f, :message) %>
+    <div>
+      <%= submit("Save", phx_disable_with: "Saving...") %>
+    </div>
+  </.form>
+</div>

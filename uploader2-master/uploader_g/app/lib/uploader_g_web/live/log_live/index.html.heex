@@ -1,0 +1,46 @@
+<div>
+  <div class="flex flex-row">
+
+    <%= if @live_action != :list_error do %>
+    <div class="flex m-4">
+      <%= link("Logs de Erros",
+        to: Routes.log_index_path(@socket, :list_error),
+        class: [
+          "py-2 px-4 bg-red-800 text-white font-semibold rounded-lg shadow-md hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 no-print"
+        ]
+      ) %>
+    </div>
+  <% end %>
+
+    <%= if @live_action != :index do %>
+    <div class="flex m-4">
+      <%= link("Todos os Logs",
+        to: Routes.log_index_path(@socket, :index),
+        class: [
+          "py-2 px-4 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 no-print"
+        ]
+      ) %>
+    </div>
+  <% end %>
+
+  <%= if @live_action != :list_info do %>
+    <div class="flex m-4">
+      <%= link("Logs Informativos",
+        to: Routes.log_index_path(@socket, :list_info),
+        class: [
+          "py-2 px-4 bg-blue-800 text-white font-semibold rounded-lg shadow-md hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 no-print"
+        ]
+      ) %>
+    </div>
+  <% end %>
+
+   </div>
+
+  <div class="relative overflow-x-auto sm:rounded-lg">
+    <.live_component
+      module={UploaderGWeb.LogLive.LogTable}
+      id={:log_table_dashboard}
+      logs={@logs}
+    />
+  </div>
+</div>

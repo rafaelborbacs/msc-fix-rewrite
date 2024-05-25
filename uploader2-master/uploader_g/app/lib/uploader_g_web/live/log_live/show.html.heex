@@ -1,0 +1,48 @@
+<div class="relative overflow-x-auto hover:bg-gray-50 shadow-md sm:rounded-lg m-4 ">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"></thead>
+
+    <div class=" rounded-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
+      <ul class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+        <li>
+          <strong>Data e hora:</strong> <%= format_date(@log.logged_at) %>
+        </li>
+
+        <li>
+          <strong>Evento:</strong> <%= @log.event %>
+        </li>
+
+        <li>
+          <strong>Mensagem:</strong> <%= @log.message %>
+        </li>
+
+        <li>
+          <strong>Origem:</strong> <%= @log.origin %>
+        </li>
+
+        <li>
+          <strong>Transmissão:</strong> <%= @log.transmission_id %>
+        </li>
+
+        <div class="flex">
+          <div class="flex-1"></div>
+
+          <div class="flex-1"></div>
+        </div>
+      </ul>
+    </div>
+  </table>
+
+  <%= if @live_action in [:edit] do %>
+    <.modal return_to={Routes.log_show_path(@socket, :show, @log)}>
+      <.live_component
+        module={UploaderGWeb.LogLive.FormComponent}
+        id={@log.id}
+        title={@page_title}
+        action={@live_action}
+        log={@log}
+        return_to={Routes.log_show_path(@socket, :show, @log)}
+      />
+    </.modal>
+  <% end %>
+</div>

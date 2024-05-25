@@ -1,0 +1,138 @@
+<div class="relative overflow-x-auto hover:bg-gray-50 shadow-md sm:rounded-lg m-4 ">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"></thead>
+
+    <div class=" rounded-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-600">
+      <ul class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+        <li>
+          <strong>Uuid:</strong> <%= @transmission.uuid %>
+        </li>
+
+        <li>
+          <strong>Tamanho (bytes):</strong> <%= @transmission.size %>
+        </li>
+
+        <li>
+          <strong>Origem:</strong> <%= @transmission.origin %>
+        </li>
+
+        <li>
+          <strong>Destino:</strong> <%= @transmission.destination %>
+        </li>
+
+        <li>
+          <strong>Começo:</strong> <%= format_date(@transmission.start) %>
+        </li>
+
+        <li>
+          <strong>Fim:</strong> <%= format_date(@transmission.end) %>
+        </li>
+
+        <li>
+          <strong>Status:</strong> <.li_status status={@transmission.status} />
+        </li>
+
+        <li>
+          <strong>Intregridade (Checksum):</strong> <%= @transmission.checksum %>
+        </li>
+
+        <li>
+          <strong>Study Instance UID:</strong> <%= @transmission.study_instance_uid %>
+        </li>
+
+        <div class="flex">
+          <div class="flex-1"></div>
+
+          <div class="flex-1"></div>
+        </div>
+      </ul>
+    </div>
+  </table>
+  <br />
+  <%= if @live_action in [:edit] do %>
+    <.modal return_to={Routes.transmission_show_path(@socket, :show, @transmission)}>
+      <.live_component
+        module={UploaderGWeb.TransmissionLive.FormComponent}
+        id={@transmission.id}
+        title={@page_title}
+        action={@live_action}
+        transmission={@transmission}
+        return_to={Routes.transmission_show_path(@socket, :show, @transmission)}
+      />
+    </.modal>
+  <% end %>
+</div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg m-4">
+  <div class="container flex flex-wrap justify-center items-center mx-auto">
+    <span class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">
+      Logs da Transmissão
+    </span>
+  </div>
+
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          ID
+        </th>
+
+        <th scope="col" class="px-6 py-3">
+          Data e hora
+        </th>
+
+        <th scope="col" class="px-6 py-3">
+          Origem
+        </th>
+
+        <th scope="col" class="px-6 py-3">
+          Evento
+        </th>
+
+        <th scope="col" class="px-6 py-3">
+          Mensagem
+        </th>
+
+        <th scope="col" class="px-6 py-3">
+          <span class="sr-only">Detalhes</span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody id="logs">
+      <%= for log <- @logs do %>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+          >
+            <%= log.id %>
+          </th>
+
+          <td class="px-6 py-4">
+            <%= format_date(log.logged_at) %>
+          </td>
+
+          <td class="px-6 py-4">
+            <%= get_unit_by_key(log.uuid) %>
+          </td>
+
+          <td class="px-6 py-4">
+            <%= log.event %>
+          </td>
+
+          <td class="px-6 py-4">
+            <%= log.message %>
+          </td>
+
+          <td class="px-6 py-4 text-right">
+            <%= live_redirect("Detalhes",
+              to: Routes.log_show_path(@socket, :show, log),
+              class: ["font-medium text-blue-600 dark:text-blue-500 hover:underline"]
+            ) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
