@@ -1,0 +1,62 @@
+This chapter presents a validation experiment conducted to understand the perceptions of practitioners involved in the studied project regarding the findings and recommendations previously presented. We made them revisit the decision-making process of the project, now aware of the evidences found in the literature review, and evaluate whether or not they would come to similar conclusions.
+
+
+Focus Group
+
+A focus group was chosen to evaluate the decisions made in the project about whether to fix or rewrite the software, based on findings from the literature review and the project's outcomes. This assessment were conducted with practitioners involved in the project to gather their insights and agreement with the conclusions made, and aims to bridge the gap between academic research and practical experience, providing insights for future decision-making. It also intended to obtain a broader, richer, and more collaborative perception of the evidences found when applied to this case and possibly stretch the guidelines or yield new hypotheses for future research.
+According to Morgan (1996), the focus group method is a research technique used to collect data through group interactions on a topic determined by the researcher. In this research, we conducted the focus group based on the process proposed by Kontio et al. (2008).
+
+
+Focus Group Planning
+
+As mentioned, our final goal was to assess whether the participants would come to similar conclusions by learning the findings collected in the literature review. Therefore, We began our research by defining the research questions as:
+- What are the perceptions of the practitioners involved in the studied project on the findings and recommendations presented?
+- If the decision were to be made again, would they consider a different approach?
+
+
+Roles
+
+The Moderator-Researcher was responsible for facilitating the interaction and discussions between the Participants, following a predefined questioning structure. Moreover, this researcher was responsible for permitting the integration and expression of opinions and making interventions when the discussion encountered conflicts. The author of this study played this role.
+
+
+Selection of Participants
+
+França and colleagues (2015) recommended ensuring the participants have the appropriate knowledge to participate in a focus group session. Although it is conventional to set focus groups with between six and twelve participants, for this study, given the small size of the team and the research goals, we gathered only two (but relevant) participants. We selected the two practitioners directly involved in the decision-making: the Team's Project Manager (Participant A) and the Tech Leader of the Sponsor (Participant B).
+
+
+Structure of Focus Group
+
+Each focus group began with the Moderator-Researcher explaining how the focus group would work and describing the problem under evaluation. For each subject investigated, we encouraged each participant to write down their thoughts, viewpoints, and whether or not they agreed. Then, by stating open questions, the Moderator-Researcher created space for the intended discussion. The whole session was recorded for subsequent data extraction and analysis. Here's a breakdown of the session:
+
+Introduction (2 minutes):
+- Welcomed participants and introduced the purpose of the focus group.
+- Explained the structure and rules for the discussion.
+- Ensured confidentiality.
+
+Project Recap (5 minutes):
+- Presented the project's timeline and reminded participants of the decisions made and the outcomes produced.
+- Asked the first open question: Do you agree that was the best decision at the time?
+
+Presentation of Findings (10 minutes):
+- Presented a concise summary of the key findings from the literature review as described in Chapter X.
+
+Discussion (20 minutes):
+- Asked participants for their initial reactions to the presentation.
+- Asked the second open question: Would you change some of the decisions made? How?
+
+Conclusion (1 minute):
+- Explained the next steps and how their feedback would be used.
+
+Conducting the Session
+
+The meeting was held remotely in portuguese in late July/2024. It took 42 minutes.
+
+
+Data Extraction and Analysis
+
+To assist with data extraction, we used an online version of Microsoft Word (Office 365) with the transcription feature. Manual corrections were essential for each transcription. The complete transcription can be found in the repository. We then employed a qualitative approach to synthesize the data collected from the transcription into a coherent narrative, using descriptions, summarization and direct quotes. The final result was a Summary Report highlighting the practitioners' perspectives, agreements, and disagreements with the study findings.
+
+Results
+
+[FUTURE DESCRIPTION HERE]
+

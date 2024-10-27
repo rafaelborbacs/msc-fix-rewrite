@@ -1,261 +1,274 @@
 INTRODUCTION
 
-Frequently, a software development project requires crucial decisions at the outset that might heavily influence its success. The challenge lies in the timing of these initial decisions, as they must be made when the team has the least information about the context, scope and risks involved, insights that will be better collected later on.
+Frequently, a software development project requires crucial decisions at the outset that might heavily influence its success. The challenge lies in the timing of these initial decisions, as they take place when the team has the least information about the context, scope and risks involved, insights that will be better collected later on.
 
-This study presents a case in which a development team was tasked with resuming a previous project that had failed in the past. Significant bugs were discovered, and the original developers were unable to fix them. The new team was provided with the source code and some initial requirements, and they had to decide whether attempting to fix the bugs or rewriting the entire program from scratch.
+This study presents a case in which a development team was tasked with resuming a previous project that had failed in the past. Significant bugs were discovered, which the original developers were unable to fix. The new team was provided with the source code and some initial requirements, and they had to decide whether attempting to fix those bugs or rewriting the entire program from scratch.
 
-What factors should they have considered? What would have been the best decision? Was there an objective decision to be made?
-
-These are the questions we will endeavor to answer henceforth.
+What factors should they have considered? What would've been the best decision? Was there an objective decision to be made? These are the questions we endeavor to answer.
 
 
 BACKGROUND
 
-This section presents a brief explanation of the project studied and challenges faced. The following description is a summarization extracted from the Requirements Document produced in partnership with the sponsors.
+This section presents a brief explanation of the studied project and the challenges faced. The following description is a summarization extracted from the Requirements Document produced in partnership with the sponsors.
 
 
-DCM UPLOADER
+UPLOADER
 
-DCM Uploader is an application that makes it easier and safer to share medical images between hospitals and clinics using the DICOM protocol over the internet. It should allow the user to set routes between nodes to which the studies must be automatically sent. The final goal is to make exam images available accross many points, wherever the doctors, technichians and patients need them.
+Uploader is a codename for the studied case that we are using so forth. It consist of an application to share medical images between hospitals and clinics using the DICOM protocol over the internet. It should allow users to set routes between nodes to which the studies are automatically and safely sent. Its final goal is to make exams images available accross many points, wherever the doctors, technichians and patients need them.
 
-Each LAN wether inside a hospital, clinic or diagnosing center could have DCM Uploader installed in a centralized host (aka gateway), which is reponsible for recieving DICOM studies produced in many modalities such as Magnetic Resonance Imaging (MRI), X-Rays machines, Computed Tomography Scanners (CT scan) and so on. The Gateway's job is simply forwarding the studies received to the next connected Gateway. It must not store locally the studies for longer than strictly needed to make sure that all connected recipiants have received them. Also, the Gateways need to establish a secure channel to exchange the files, such as VPN, as sensitive data will travel through the internet.
+Each LAN wether inside a hospital, clinic or diagnosing center could have Uploader installed in a centralized host (aka Gateway), which is reponsible for recieving DICOM studies produced in many modalities such as Magnetic Resonance Imaging (MRI), X-Rays machines and Computed Tomography Scanners (CT scan). The Gateway's job is simply forwarding the studies to the next connected Gateway. It must not store locally the studies for longer than strictly needed to make sure that all connected recipiants have received them. Also, all the connected Gateways need to establish a secure channel to exchange the files between them (a VPN), since sensitive data will travel through the internet.
 
-After recieving studies from a neighbor Gateway (located in another LAN), it's optional (may be configured) to also forward the studies to a local PACS (Picture Archiving and Communication System), using DICOM protocol, in order to persist them and/or integrate with other DICOM programs. The PACS must be installed in the LAN but isn't part of DCM Uploader. Any DICOM compatible PACS can be used for that purposed, such as Orthanc or DCM4Chee.
+After recieving studies from a neighbor Gateway, it's optional (can be configured) to also forward the studies to a local PACS (Picture Archiving and Communication System), using the DICOM protocol, in order to persist them and/or to integrate with other DICOM applications. Any DICOM compatible software can be used for that purpose, such as Orthanc and DCM4Chee.
 
-The users of DCM Uploader are often the Hospital/Clinic Network Manager who would authenticate, setup the Gateways and local PACS and connect them using a graphical user interface. They will also monitor the health of the Gateways and consult transfer logs.
+The main user of Uploader is often the Hospital's Network Manager who would authenticate, setup the Gateways and local PACS and connect them using a graphical user interface, monitor the health of the network and eventually consult transfer logs.
 
-Other minor requirements have been identified but they are less relevant to this case study. The full Requirements Document can be found in [] (original in portuguese).
+Other minor requirements have also been described but they are less relevant to this case study. The full Requirements Document can be found in [] (original in portuguese, anonymized).
+
+Each Gateway is composed of three components:
+- Uploader T (transmitter): responsible for sending studies to the next peer.
+- Uploader R (receiver): receives the incoming studies and stores them in the local PACS, if one is configured.
+- Uploader M (manager): can be used to configure 'T' and 'R' and also to monitor the network and the status of the transfers.
+
+Those three programs make up to 37 thousand lines of code (KLOC), which, accordingly to [https://www.sciencedirect.com/science/article/abs/pii/0164121293900726], makes it a Medium-Large software project. The code is primarly written in Elixir, but other languages such as Java, Shell, Javascript and Python were used. The source code is proprietary and could not be disclosed.
 
 
 THE CASE
 
-At first glence, the software as described didn't look that complex and the team was confident the errors were to be corrected. After examining the test logs though, the team learned that the problems could be more critical:
-	- missing studies;
-	- sudden stops and restarts;
-	- incomplete transfers that paused with no aparent reason;
-	- unsynchronized states: sender stating a completed transfer and reciever accusing otherwise;
-	- duplicated studies;
-	- duplicated series within studies.
+At first glance, the software did not seem very complex, and the team was confident that the errors could be corrected. However, after examining the test logs, the team discovered that the problems were more critical:
+- Missing studies;
+- Sudden stops and restarts;
+- Incomplete transfers that paused for no apparent reason;
+- Unsynchronized states, with the sender indicating a completed transfer while the receiver reporting otherwise;
+- Duplicated studies;
+- Duplicated series within studies.
 
-The full test reports can be found in [] (original in portuguese).
+The full Test Reports can be found in [] (original in portuguese, anonymized).
 
-As the kick-off approached, the managers were pressured to make a decision between refactoring and rewriting. An agile development process had been choosen and therefore the scope of the first sprint needed to be specified. Then, meetings were held to discuss the issue and a number of questions were raised:
-	- How easy is the code to understand and maintain?
-	- How well structured is its architecture?
-	- How well documented is this software?
-	- Which technologies were utilized?
-	- Do our team have any expertise on them?
-	- How serious are the errors found?
-	- Why were the original developers, presumably familiarized with the code, unable to solve them?
-	- Do this project classify as bankruptcy or can it be saved?
-And the list went on.
+As the kick-off approached, the managers felt pressured to decide between refactoring and rewriting. An agile development process had been chosen, so the scope of the first sprint needed to be specified. Meetings were held to discuss the issue and several questions were raised:
+- How easy is the code to understand and maintain?
+- How well structured is its architecture?
+- How well documented is the software?
+- Which technologies were utilized?
+- Does our team have any expertise with them?
+- How serious are the errors found?
+- Why were the original developers, presumably familiar with the code, unable to solve those issues?
+- Can this project be classified as failure (or bankruptcy)?
 
-However, the team struggled due to lack of information on the project and its source code:
-    - no version control history was available;
-	- no requirements document or users cases were elicited;
-	- the original developers and managers could not be contacted;
-	- no risks were assessed.
+However, the team struggled due to lack of information about the project's previous history:
+- No version control was available;
+- No requirements document or user cases were elicited;
+- The original developemnt team could not be contacted;
+- No risks were assessed or monitored.
 
-To summarize, the only reliable source of information were the code itself and the tests report. On that account, a source code inspection took place.
+To summarize, the only reliable source of information were the code itself and the tests reports. On that account, a source code inspection took place. By then it was obvious that there was no certainty about whether the program's malfunctions could be fixed in a reasonable amount of time. If they could be, then this probably would've been the better choice. Otherwise, the team might have found themselves trapped trying to refactor an unfeasible codebase. On the one hand, it seemed inefficient to let the original software go to waste, but on the other hand, the refactoring effort could end up consuming more time and energy. It was clearly a trade-off situation. A decision had to be made to maximize the probability of success, based on the project's objective and subjective qualities, and the severity of the reported errors.
 
-It was obvious that there was no certainty about whether the program's malfunctions could be fixed in a reasonable amount of time. If they could be, then fixing them would have been the better choice. Otherwise, the team might have found themselves trapped trying to refactor an unfeasible codebase. On one hand, it seemed inefficient to let the original software go to waste. On the other hand, the refactoring effort could backfire and end up consuming more time and energy. It was a trade-off situation. A decision had to be made to maximize the probability of success, based on the project's objective and subjective qualities, and the severity of the reported errors.
+Although, because the best guidelines weren't available, the managers decide to split the difference. The development team was divided in two pairs of programmers, named Brownfield and Greenfield. The first group was responsible for trying to fix the old software, while the later was in charge of starting a new project to rewrite the program. The plan was to pick the best alternative after 6 sprints and abandon the less promising one. By choosing this strategy the managers accepted a certain loss in productivity in exchange of postponing the decision to the future when they should had more information. This was more of a practical decision than an empirically supported one.
 
-Although, because of the best guidelines were unfamiliar to the managers, the decision was made to split the difference. The development team was divided in two pairs of programmers, named Brownfield and Greenfield. The first group was responsible for trying to fix the old software, while the later was in charge of starting a new project to rewrite the program.
-
-The plan was to pick the best alternative after 6 sprints and abandon the less promising one. By choosing this strategy the managers accepted a certain loss in productivity in exchange of postponing the decision to the future when they should have more information. This was more of a practical decision than an empirically supported one.
-
-After 4 sprints of no progress it was a clear failure for the Brownfield team.
-
+The timeline of the table 1 shows how the sprints played out for the entire project. As it can be seen, after 4 sprints of no progress, it was determined that the Brownfield failed and this branch was terminated prematurely. The team reported the most critical troubles they've found:
+- Low familiarity with the Elixir syntax and logic;
+- Lack of documentation, specially Software Requirements, including use cases, and Architecture and API specifications;
+- High coupling/Low modularity of components;
+- Confusing mix of different programming languages. In some cases, Elixir, Shell and Python codes were combined into a single functionality;
+- Potential problems internal to the Erlang/Elixir VM environment causing abrupt crashes;
+- Code seemed excessivly large and complex for the intended solution.
 
 [...]
 
 
 STATEMENT OF THE PROBLEM
 
-First of all, 
+The issue here described is similar to the maintenance versus replacement problem, which has been extensively studied. This field of research focuses on determining when it is no longer worthwhile to maintain legacy software and when rebuilding it is a better solution. Over time, maintaining a legacy software becomes increasingly more difficult and time consuming due to factors such as the accumulation of technical debt and outdated technologies. However, rewriting also introduces its own concerns and risks, particularly regarding costs and schedule overruns [2]. Many researchers have attempted to identify the optimal time to cease evolving the old project and start working on a new one. As more enhancements are performed, legacy systems deteriorate and become more expensive to maintain (Keith, 1995). Maintenance activities in software systems are broadly characterized as a sequence of corrective, adaptive, and perfective actions (Swanson, 1976).
 
-How to make the best choice between trying to fix and rewriting a problematic software, considering risks involved in both alternatives?
+Although similar, the problem addressed in this research differs in several key aspects. First, the problematic software is not exactly legacy software, as critical bugs have prevented it from going into production. Second, fixing it falls under a single kind of maintenance: corrective one. Finally, not much time has passed since the software was written, so outdated technology is not a primary concern. Nonetheless, the options remain the same: the existing code can either be evolved or abandoned, and once a decision is made and resources are spent, reversing the decision becomes costly.
 
-The issue the team faced was to decide on the spot 
-
-This is similar (but not quite the same) to the maintenance x replacement problem, which has been vastly studied []. This research field aims to decide when it isn't worth any longer to maintain a legacy software and therefore rebuilding the software is a better solution. As time passes, a legacy software becomes increasingly more difficult (and costly) to maintain due to many factors, including technical debts acumulation and outdated technologies []. However, rewriting raises its own concerns and risks, specially regarding costs and schedule overruns []. Many researchers have tried to find the sweet spot, the optiomal time to freeze the old project evolution and start working on the new one.
-
-As more enhancements are performed, these systems deteriorate and become more expensive to maintain. Such systems are often termed legacy software systems (Keith 1995)
-
-Maintenance activities in software systems are broadly characterized as a sequence of corrective, adaptive, and perfective actions (Swanson 1976)
-
-However similar, this problem differs to the this research topic on some aspects. First, the problematic software isn't exactly a legacy, as crucial bugs prevented it from going into production. Second, fixing is just one kind of maintenance (corrective). And finally, not much time has passed since the software has been written, so it isn't a matter of outdated technology. Nevertheless, the options are the same: the existing code can only be evolved or abandoned. And once a decision is made and the man-hour is spent, going back is costly.
+The trade-off under analysis can be summarized as follows: How can the best choice between fixing and rewriting problematic software be made, considering the risks associated with both alternatives?
 
 
 SIGNIFICANCE OF THE RESEARCH
 
-As will be demonstrated below, there is a scarcity of studies addressing this specific problem, despite its potential significance in decision-making.
+As it will be demonstrated below, there is a scarcity of studies addressing this specific problem, despite its potential significance in decision-making. In the case under examination, practitioners opted for a middle-ground approach, dividing the team in two groups, one dedicated to understanding the flaws in the existing program, while the other initiating a new project solely based on the requirements. The result was that the first group failed to resolve the issues with the original project within the allocated timeframe, leading to the termination of the Brownfield branch.
 
-In the case under examination, practitioners opted for a middle-ground approach: the team divided into two groups, one dedicated to understanding the flaws in the existing program, while the other initiated a new project solely based on the requirements. The result was that the first group failed to resolve the issues with the original project within the allocated timeframe, leading to the termination of the Brownfield branch.
-
-In essence, the task was completed. The team made efforts to rectify the old program, failed to make any progress, and moved forward. However, this decision was evidently suboptimal. It's clear that the chosen path was a compromise rather than a systematic approach.
-
-Therefore, the objective of this case study is to ascertain whether there objectively existed a better decision to be made in that scenario, based on evidence from the literature. This endeavor may yield guidelines for future reference.
+In essence, the task was completed. The team made efforts to rectify the old program, failed to make any progress, and moved forward. However, this decision was probably suboptimal. Therefore, the objective of this case study is to ascertain whether there objectively existed a better decision to be made in that scenario, based on evidence from the literature. This may yield guidelines for future reference.
 
 
 METHODOLOGY
 
-To accomplished this research goal a number of steps were needed.
-
+To accomplish this research goal a number of steps were needed:
 1- Organize all data the practioners had available on the project, technologies, scope and contexts that could have influenced the decision making;
 2- Gather evidence from the literature on that subject;
-3- Apply those evidences on the case studied to assess if there was objectivly an optimal (or better) decision to be made.
+3- Apply those evidences on the case studied to assess if there was a right decision to be made.
 
-Each of those steps bear their on challenges. First, the data used must reflect exactly what the practioners had available. Second, a methodology was needed to gather literature evidences. To cover that, we choose to run a Rapid Review. A RR is usually choosen over a traditional systematic review for being more flexible and less time consuming, while still providing a controlled process of obtaining sufficient evidence on the research question []. Adittionally, we'll use snowballing backwards on the discovering step to stretch our data set.
+Each of those steps beared their on challenges. First, the data used must have reflected exactly what the practioners had available. Second, a methodology was needed to gather literature evidences. To cover that, we choose to run a Rapid Review. A RR is usually choosen over a traditional systematic review when a more flexible and less time consuming methodology is desired, while still providing a controlled process of obtaining sufficient evidence on the research question [].
 
-Snowballing refers to a sampling method used in literature reviews. This approach is employed to identify relevant research papers on a particular topic. The idea is to start with a small set of known or highly relevant papers and then use them as a "snowball" to find additional relevant sources by examining their references and citations. This particular combination of using Google Scholar to put up a initial set and snowballing hass been empirically supported [https://www.sciencedirect.com/science/article/pii/S0950584922000659, https://dl.acm.org/doi/abs/10.1145/3266237.3266240].
+Adittionally, backwards snowballing on the discovering step was used to stretch the data set. Snowballing refers to a sampling method used in literature reviews. This approach is employed to identify relevant research papers on a particular topic. The idea is to start with a small set of known or highly relevant papers and then use them as a "snowball" to find additional relevant sources by examining their references and citations. This particular combination of using Google Scholar to put up a initial set and snowballing hass been empirically supported [https://www.sciencedirect.com/science/article/pii/S0950584922000659, https://dl.acm.org/doi/abs/10.1145/3266237.3266240].
 
-Finally, applying theoretical evidence to a concrete case might be tricky and bias susceptible. First, it's important to aknowledge that the solo researcher of the present work was part of the development team, although not responsible for the managerial decisions.
+It is important to recognize though that applying theoretical evidence to a concrete case might be tricky and bias susceptible. It's also important to aknowledge that the solo researcher of the present work was part of the development team, although not responsible for the managerial decisions.
 
 
 RAPID REVIEW PROTOCOL
 
-1. PRACTICAL PROBLEM
+PRACTICAL PROBLEM
 
 A company has reported critical issues with its recently developed software. A new team is formed and faces the decision between fixing the software or rewriting it from scratch.
 
 
-2. RESEARCH QUESTIONS
+RESEARCH QUESTIONS
 
 How can the best choice between fixing and rewriting problematic software be made, considering the risks associated with both alternatives?
 
-Additional secondary questions may aid in answering the main question by addressing similar trade-offs:
+Additional secondary questions might aid in answering the main question by addressing similar trade-offs:
 
-- How can critical technical debt, major software risks, or even software bankruptcy (defined as software failure beyond repair) in a software project be detected?
+- How can critical technical debt, major software risks and software failure (or bankruptcy) be detected in a software project?
 
-	Identifying these elements may help prevent wasting time and resources on code that is unfeasible to fix.
+    Identifying these elements may help prevent wasting time and resources on code that is unfeasible to fix.
 
 - How does software complexity affect its maintainability?
 
-	High complexity or entanglement may indicate poor maintainability.
+    High complexity, entanglement and low modularity may indicate poor maintainability.
 
 - How can the decision between maintaining a legacy system and replacing it be made?
 
-	The factors that lead to abandoning a legacy system may also apply to a buggy software that is beyond repair.
+    The factors that lead to abandoning a legacy system may also apply to a buggy software that is beyond repair.
 
-It's important to note that the secondary questions are evaluated only in the context of answering the main question.
-
-
-3. METHOD
-
-To gather relevant evidence to answer these research questions, the following steps are proposed:
-	- Conduct an open search on Google Scholar to discover relevant keywords on the topic.
-	- Construct a search query from the articles found.
-	- Run the query on the same platform. Relevant articles linked to one of the research questions are freely harvested to constitute an initial dataset.
-	- Execute backward snowballing to collect related works that match the selection criteria.
-	- Review all the final dataset for evidence that directly addresses the main research questions or indirectly through one of the secondary questions.
-	- Report the findings along with their applicability to the case studied.
+It's important to note that the secondary questions were evaluated only in the context of answering the main question.
 
 
-4. SEARCH STRATEGY
+METHOD
 
-- Source
-
-Google scholar.
-
-- Initial search query
-
-software ((project (failure OR bankruptcy OR "thecnical debt")) OR (problem rewrite (refactoring OR refactor)) OR (risks maintenance decision))
-
-
-5. SELECTION PROCEDURE
-
-There will be accepted only studies that match all the following criteria:
-	- papers published in journals or conferences;
-	- written in english;
-	- available on Google Scholar;
-	- with title and/or abstract that addresses at least one of the research questions.
-
-The selection process will be executed by one researcher in one round and documented into a spreadsheet.
+To gather relevant evidence to answer the research questions, the following steps were proposed:
+- Conducting an open search on Google Scholar to discover relevant keywords on the topic.
+- Constructing a search query from the articles found.
+- Running the query on the same platform. Relevant articles linked to one of the research questions were freely harvested to constitute an initial dataset.
+- Executing backward snowballing to collect related works that matched the selection criteria.
+- Reviewing the final dataset for evidences that addressed the questions.
+- Reporting the findings along with their applicability to the case studied.
 
 
-6. QUALITY ASSESSMENT
+SEARCH STRATEGY
 
-No quality assessment will be made on the selected studies.
+Source: Google scholar.
 
-
-7. EXTRACTION PROCEDURE
-
-A spreadsheet will be created to store the evidences found that answer the research questions.
+Initial search query: software ((project (failure OR bankruptcy OR "thecnical debt")) OR (problem rewrite (refactoring OR refactor)) OR (risks maintenance decision))
 
 
-8. SYNTHESIS PROCEDURE
+SELECTION PROCEDURE
 
-The synthesys procedure will be based on the principles of narrative synthesis. The key findings will be collected and sequenced into a spreadsheet and then synthesized into a coherent narrative that addresses the research question or objectives. This may involve summarizing key themes, discussing commonalities and discrepancies, and providing interpretations or explanations for the observed patterns.
+Only studies matching all the following criteria were accepted:
+- papers published in journals or conferences;
+- written in english;
+- available on Google Scholar;
+- with title and/or abstract addressing at least one of the research questions.
+
+The selection process were executed by one researcher in one round and documented in table format.
 
 
-9. REVIEW REPORT
+QUALITY ASSESSMENT
 
-The findings will be reported in the Discussions session through evidence briefings, presented in a storytelling narrative format.
+No quality assessment were mande on the selected studies.
+
+
+SYNTHESIS PROCEDURE
+
+The synthesys procedure was based on the principles of narrative synthesis. The key findings were collected, sequenced and then synthesized into a coherent narrative addressing the research question and objectives. This involved summarizing key themes, discussing commonalities and discrepancies, and providing interpretations or explanations for the observed scenario.
+
+
+REVIEW REPORT
+
+The findings were reported in the Discussions session through evidence briefings, presented in a storytelling narrative format.
+
+
+FINAL DATASET
+
+[...]
 
 
 RAPID REVIEW REPORT AND DISCUSSIONS
 
-This report aims to provide a succinct overview of evidences on how to choose between fixing and replacing a software with severe problems. The review investigates the several studies present in the RR final dataset and synthesizes key findings, challenges and recommendations for practitioners and researchers in the field.
+This report aims to provide a succinct overview of evidences on how to choose between fixing and replacing a software with severe problems. The review investigates the several studies present in the RR final dataset and synthesizes key findings and recommendations for practitioners and researchers in the field.
 
 
 KEY FINDINGS
 
+[...]
 
 
 DISCUSSION
 
+In this section we match the most important aspects of the case studied with the collected evidences.
 
-Whenever problems appear on a software one usually have three options: doing nothing (ignore), making incremental changes (refactor), or writing a new program from scratch (rewrite). Although, this statement is valid only when the problems are small enough that can be ignored. [1]
+Deciding whether to fix the existing code or to rewrite it from scratch is a significant decision that depends on various factors. Usually there're three options: doing nothing (ignore), making incremental changes (refactor), or writing a new program from scratch (rewrite). Although, this statement is valid only when the problems are small enough that can be ignored [1]. The first and most obvious conclusion is that ignore was not an option in our case. On the contrary, the presence of many critical errors reported was an indicative of fundamental design flaws [3, 14], which would be confirmed by the detection of entanglement and low modularity [2] in the code inspection.
 
-To make a decision, it seemed inexorable to assess the success/failure chances of the poject based on historical events.
+If fixing the program were the chosen path, it would be necessary to perform a series of maintenance tasks until the software was compliant and coherent. Maintenance can be classified into adaptive, perfective and corrective [12]. In this study, we focused on corrective maintenance, which are usually triggered by a failure of the software detected during tests or operation. Once a particular maintenance objective is established, one must first understand what they are to modify. They must then modify the program to satisfy the maintenance objectives. After modification, they must ensure that the modification does not affect other portions of the program. Finally, they must test the program. The following aspects of a software were found to be important to execute corrective maintenances [10]:
+- Maintainability: the average effort in staff-hours per maintenance task;
+- Comprehensibility: the average isolation effort (effort to decide what to change) in staff-hours per maintenance task, or the average amount of rework (all effort spent for changing already existing documents such as requirements, designs, code, or test plans) per system unit as a percent of all effort spent per unit throughout the lifecycle;
+- Locality: the average number of changed units per maintenance task, or the average maximum portion of the change effort spent in one single unit per maintenance task;
+- Modifiability: the average correction effort in staff-hours per maintenance task and unit;
+- Reusability: the average amount of reused documentation as a percent of all documentation per maintenance task.
 
-The search for factors that influence project success or failure has been of great interest to both researchers and practitioners. One stream of work is focused on developing decision rules and/or decision support systems to aid in making systematic decisions on whether projects should be terminated [16-the-causes-of-project-failure]
+However, without a version tracking, it was challenging to understand the code's history, changes, and the rationale behind them.
 
-Current approaches to the software process make it too easy for projects to make high-risk commitments that they will later regret: The code-driven, evolutionary development process model tempts people to say, “Here are some neat ideas I’d like to put into this system. I’ll code them up, and if they don’t fit other people’s ideas, we’ll just evolve things until they work.” This sort of approach usually works fine in some well-supported minidomains like spreadsheet applications but, in more complex application domains, it most often creates or neglects unsalvageable high-risk elements and leads the project down the path to disaster. [15-software-risk-management-principles-and-]
-Software project failure is not a rare event. In fact....
+The fact that the code was medium-large sized made the decision even harder [1]. One recurrently studied factor of a software is its psychological complexity, which refers to characteristics of the software that make it difficult to understand and work with [12]. There's a large number of complexity metrics, such as KLOC, quantity of variables, interfaces and different logical paths [11]. However, to analyze software complexity metrics objectively, in this particular case, has shown to be less effective because of, once again, lacking of history. Most of the studies try to correlate those metrics with past behavior, for example, to address how hard it is expected to perform a maintenance task in that complex module in comparison with another one [8], or to predict programming times comparing one to the next version of the same software increasingly more complex [9].
 
-If you define failure as the total abandonment of a project before or shortly after it is delivered [4-why-software-fails].
+Since there was no version backlog and the previous history was unknown, a baseline to estimate code refactoring and bug fixing activities wasn't available. Although, it was reported by the practioners that the code seemed too large for its use case, which is a weaker evidence but does suggests high complexity and leads to harder maintenance [2] and low understandability [11].
 
-The distinction between functional complexity and system quality is important because rewriting a software system will improve its quality but will not reduce its functional complexity [12-an-economic-model-to-estimate-rewrite]
+Furthermore, the absense of software documentation (specifically requirements, including use cases, and risks management) was a red flag as well, since it is evidence of difficulty to enhance and maintain systems [2, 9] and improved overall risks [7, 15]. That also indicates poor project management (although cannot be confirmed) which have been pointed out as the single greatest cause of software failures [4, 17].
 
-According to [311], maintenance requests can be classified into: 1) adaptive, 2) perfective, and 3) corrective. In our study, we focus on adaptive and perfective maintenance requests. Not a good fit. [12-an-economic-model-to-estimate-rewrite.pdf]
+Adittionally, choosing Elixir as main technology was at least questionable, as imature technologies is linked to project failures and threatens maintainability [4, 7]. Well stablished languages like Python, C++, Java and Javascript have over 50 times the usage [https://madnight.github.io/githut] and could be therefore better suited.
 
-Most models focus on adaptive and perfective changes and make assumptions like the rate of maintenance requests arrival [12, 13]
+To complete the decision, it was also necessary to assess the success/failure chances of the given poject. Software project failure is not a rare event. In fact, it accounts for over at least 30% of the projects [7]. Software Failue can be defined as the total abandonment of a project before or shortly after it is delivered [4], or as a synonym of Software Bankruptcy, when it is acompanied with heavy financial damage and/or loss of reputation by not meeting the target date or an excess over the budget by approximately 20% [6].
 
-The channeling of communication via parameter-passing rather than global variables is characteristic of more maintainable programs. Thus, the stability measures indicate that the stability of programs utilizing parameter passing is generally better than that of programs utilizing global variables. [11-some-stability-measures-for-software-maintenance]
+The search for factors that influence the project success or failure has been of great interest to both researchers and practitioners. One stream of work is focused on developing decision rules and/or decision support systems to aid in making systematic decisions on whether projects should be terminated [16]. As mentioned, there're two kinds of bankruptcy: expenditure over the budget and not meeting the target date [6]. The studied case fits the later.
 
-Software maintenance is defined as the performance of those activities required to keep a software system operational and responsive after it is accepted and placed into production [10]. Maintenance activities can be divided into three categories: corrective, adaptive, and perfective. Whereas corrective maintenance refers to changes usually triggered by a failure of the software detected during operation, adaptive and perfective maintenance refer to changes due to external changes. Adaptive maintenance is initiated by changes of-the operational environment; perfective maintenance is initiated by changes of the requirements. ... Erroneously reported failures may be due to inappropriate documentation or differences between the specified and user-expected function of a software system; as a consequence, perfective maintenance activities can be triggered. ... 1) Maintainability: Is the average effort in staff-hours per maintenance task different? 2) Comprehensibility: Is the average isolation effort (effort to decide what to change) in staff-hours per maintenance task, or the average amount of rework (all effort spent for changing already existing documents such as requirements, designs, code, or test plans) per system unit as a percent of all effort spent per unit throughout the lifecycle different? 3) Locality: Is the average number of changed units per maintenance task, or the average maximum portion of the change effort spent in one single unit per maintenance task different? 4) Modifiability: Is the average correction effort in staff-hours per maintenance task and unit different? 5) Reusability: Is the average amount of reused documentation as a percent of all documentation per maintenance task' different? [10-a-controlled-expeniment-on-the-impact-of-]
+Again, the absense of basic planning, design and developemnt documents plays a huge role in improving chances of failure. We found evidence that this Code-Driven development process induces high-risk commitments. It tempts people to say "Here are some neat ideas I'd like to put into this system. I'll code them up, and if they don't fit other people's ideas, we'll just evolve things until they work." This sort of approach usually works fine in some well-supported minidomains but, in more complex application domains, it most often creates or neglects unsalvageable high-risk elements and leads the project down the path to disaster. [15]
 
-Once a particular maintenance objective is established, the maintenance personnel must first understand what they are to modify. They must then modify the program to satisfy the maintenance objectives. After modification, they must ensure that the modification does not affect other portions of the program. Finally, they must test the program. These activities can be accomplished in the four phases as shown in Fig. 1. The first phase consists of analyzing the program in order to understand it. Several attributes such as the complexity of the program, the documentation, and the self-descriptiveness of the program contribute to the ease of understanding the program. The complexity of the program is a measure of the effort required to understand the program and is usually based on the control or data flow of the program. The self-descriptiveness of the program is a measure of how clear the program is, i.e., how easy it is to read, understand, and use. The second phase consists of generating a particular maintenance proposal to accomplish the implementation of the maintenance objective. This requires a clear understanding of both the maintenance objective and the program to be modified. The third phase consists of accounting for all of the ripple effect as a consequence of programn modifications. In software, the effect of a modification may not be local to the modification, but may also affect other portions of the program.
+To summarize, we verified or presumed the following failure-linked factors reported in the literature [4, 5, 7] in the case studied:
+- Inaccurate estimates of needed resources;
+- Badly defined requirements;
+- Poor reporting of project’s status;
+- Unmanaged risks;
+- Use of immature technology;
+- Inability to handle the project’s complexity;
+- Sloppy development practices;
+- Poor project management;
+- Project under-estimated;
+- Risks not re-assessed, controlled, or managed through the project;
+- Delivery decision made without adequate requirements information;
+- Risk not incorporated into the project plan;
+- Change control not monitored, nor dealt with effectively;
+- Inappropriate development methodology for the project.
 
-complexity metrics: KLOC, number of variables, number of interfaces, number of different logical paths [11]
-
-To analyze software complexity metrics has shown to be less effective because of lacking history of the studied project. Most of the studies try to relate . For example, [9-the-use-of-software-complexity-Metrics-], examines the changes on complexity from one version to the next of a given system.
-
-As we don't have access to the versions backlog of this project, nor do we know pretty much anything about its previous history, we don't have a baseline to estimate code refactoring and bug fixing activities.
-
-In using these metrics, it is important to distinguish between the computational and psychological complexity of software, since the reasons for assessing them differ. Computational complexity refers to "the quantitative aspects of the solutions to computational problems" [15], such as comparing the efficiency of alternate algorithmic solutions. For example, as the number of distinct control paths through a program increases, the computational complexity may increase. Psychological complexity refers to characteristics of software which make it difficult to understand and work with.
-
-a program with many control paths could be psychologically simple if any regularity existed in the program's branching process.
-
-are part of an ongoing research program investigating human factors in software engineering.
-
-These experiments were designed to investigate factors which influence two aspects of the software maintenance process; namely, understanding an existing program (Experiment 1) and accurately implementing modifications to it (Experiment 2). These factors included structured programming techniques, program documentation, and software complexity. [8-measuring-the-psychological-complexity-of-software-maintenance]
-
-Developing software systems is an expensive, and often a difficult process as software development projects are affected by a series of problems, such as poor project management, cost and schedule overruns, poor quality software and under-motivated developers [1], [3]. Boehm suggested in 1991 that realistic schedule and budgets together with a continuing steam of changes in requirements are high risk factors for software development projects [2]. The Standish Group indicated in 1994 that approximately 31% of corporate software development projects are cancelled before completion and 53% cost nearly 200% of their original estimate [18]. Glass called challenged projects "runaway projects" when he discussed 16 project disasters in 1998 [6]. He found that the failed projects he reviewed were mostly huge, and that the failure factors were not just management factors but also included technical factors. Linberg, in 1999, found that 20% ofsoftware projects failed, and that 46% experienced cost and schedule overruns or significantly reduced functionality [12]. Glass revisited failed projects in 2002 and found that poor estimation was high on his list of failure factors [7]. He suggested that we do estimation very badly and that most of our estimates are more like wishes than realistic targets [7]. To make matters worse, we seem to have no idea how to improve on these bad practices. The result is an impossible estimation target, with shortcuts taken, and good practices skipped. "The evil twin of optimistic estimation", and "unstable requirements" result from customers and users only having a vague idea of the required solution at the outset of a project when initial estimates need to be done [8]. Naturally this makes it difficult for estimators and developers. It is commonly accepted that requirements change throughout a project and the system's life cycle. Managing these changes becomes a challenge [7]. Other studies, suggest various failure rates for software development projects up to 85% [10]. In 2006 the Standish Group suggested that 67% ofIT projects fail or are challenged (cited in [15]). In 2007 Sauer et. al. [17] suggest that the situation is not so bad and in fact 67% of the projects they investigated in the UK delivered close to budget, schedule and scope expectations. Recently Charette noted that "billions of dollars are wasted each year on failed software projects" and that "we have a dismal history of projects that have gone awry" [4], Charette provides a long list of high profile failed projects from around the world in his "Hall of Shame" and suggests that from 5%-15% of projects will be abandoned before or shortly after delivery as hopelessly inadequate [4]. Most IT experts agree that such failures occur far more often than they should. (/7-what-factors-lead-to-software-project-failure.pdf)
-
-Bankruptcy of a software project is defined as the status. That is acompanied with heavy financial damage and/or loss of reputation by not meeting the target date or an excess over the budget by approximately 20%. [6-an-analysis-of-software-project-failure]
-
-There are two kinds of bankruptcy as mentioned before: One is caused by an expenditure over the budget. The other involves not meeting the target date.  [6-an-analysis-of-software-project-failure] (the case have met both) This study proposes a methodology to determine software bankruptcy by ploting a graph comparing the development and testing progresses and the number of bugs found. ...  The number of items that the check have not been carried out and the number of bugs detected versus the number of working days elapsed.
+Although we found advice to avoid complete rewrite when the application concerned is large because much of the effort will be expended on redeveloping the initial software functionality [13], the requirements elicited were not large or complex which, again, indicated poor design/implementation and indicated that a better structured code could be easier to understand and maintain. A final thought is that not all requirements elicited were present in the original project, so even if the bugs could be corrected, enhancements would still be needed. In this scenario, a total replacement, although require significant investment, such a rework would also improve consistency and increase familiarity of the code to the developers, which would lower further maintenance costs. To conclude we found reason to believe that rewriting would've been the best option for our specific case.
 
 
 CONCLUSION
 
-Software projects will always call for trade-off decisions because of human factors and non-deterministic events that lead to not fully predictable results.
+Software projects will always call for trade-off decisions because of human factors and non-deterministic events that lead to not fully predictable results. When faced with the fixing versus rewriting dilemma, all the practioner can do is to investigate the current stage of the project, apply the best guidelines available, make a decision and hope for the best. We propose a breakdown of the most usefull guidelines we found on the literature and that applied to our case:
 
-When faced with the fixing x rewriting dilemma, all the practioner can do is to investigate the current stage of the project, apply the best guidelines available, make the decision and hope for the best.
+Severity and Scope of Bugs:
+- If the bugs are isolated and the affected module can be specified, fixing may be more efficient.
+- If the bugs are pervasive and affect core functionalities, rewriting is most likely necessary.
 
-In the case presented, we demonstraded that, with the on-hand information, opting for rewriting would've been the less risky scenario, hypothesis that would've saved the team time and resources.
+Code Quality and Maintainability:
+- High-quality, well-structured and well-documented codes are easier to fix.
+- Poorly written, undocumented and entangled codes are cost-effective to rewrite.
 
-Further research might try to quantify each aspects and risks associated with the problematic software to propose an stochastic indicator and a thresshold, to decide more objectivly the path that minimize the probability of failure.
+Technical Debt:
+- If the software has accumulated technical debt, rewriting can offer a fresh start, reduce maintenance costs and enhance developers familiarity. Those advantages usually pays off.
+
+Time and Resource Constraints:
+- Fixing bugs may require less immediate investment compared to rewriting.
+- Rewriting can be more time-consuming and resource-intensive but might save time in the long run.
+
+Requirements:
+- If the current software struggles to meet all requirements, rewriting can provide a more robust foundation.
+
+Technological Advancements:
+- If the existing software relies on outdated or imature technologies, rewriting can leverage modern tools and more tested frameworks.
+
+Team Expertise:
+- The availability of skilled developers who are proficient in the existing code is key.
+- If developers who can understand quickly the code is scarse, build a new system is time-saving and more effective.
+
+In the case presented, we demonstraded that, with the information available, opting for rewriting would've been the less risky alternative, hypothesis that would've proved to save time and resources.
+
+Although there isn't always a right answer, the proposed checklist could be used to suport decisions alike. Further research might validate that on a broader range of cases and also quantify how those factors individiually weight on the final decision. Finally, an stochastic indicator and a thresshold could be proposed to help deciding in a more objectivly manner.
